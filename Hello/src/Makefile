@@ -56,17 +56,14 @@ STEP_OBJS = $(patsubst %.cpp,%.o,$(STEP_CPP_SRCS))
 SO_OBJS = $(patsubst %.cpp,%.o,$(SO_CPP_SRCS))
 CMD_DEP_OBJS = $(patsubst %.cpp,%.o,$(CMD_DEP_CPP_SRCS))
 PB_OBJS = $(patsubst %.pb.cc,%.pb.o,$(CC_SRCS))
-SOS = $(patsubst %.o,%.so,$(SO_OBJS))
 
-TARGET = $(SOS)
+TARGET = Hello.so
 
 all: $(TARGET)
 
 .SECONDARY: $(PB_OBJS) $(CMD_DEP_OBJS)
 
-Cmd%.so:Cmd%.o $(PB_OBJS) $(CMD_DEP_OBJS)
-	$(CXX) -fPIE -rdynamic -shared -g -o $@ $^ $(LDFLAGS)
-Module%.so:Module%.o $(PB_OBJS) $(CMD_DEP_OBJS)
+Hello.so:$(OBJS)
 	$(CXX) -fPIE -rdynamic -shared -g -o $@ $^ $(LDFLAGS)
 
 %.o:%.cpp
