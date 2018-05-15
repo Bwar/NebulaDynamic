@@ -17,7 +17,7 @@ LIB3RD_PATH = ../../../NebulaDepend
 NEBULA_PATH = ../../../Nebula
 PLUGIN_PATH = ../../
 
-VPATH = $(PLUGIN_PATH)/src
+VPATH = .
 SUB_DIRS := $(foreach dir, $(VPATH), $(shell find $(dir) -maxdepth 5 -type d))
 DIRS := $(SUB_DIRS)
 
@@ -41,27 +41,10 @@ CC_SRCS = $(foreach dir, $(DIRS), $(wildcard $(dir)/*.cc))
 C_SRCS = $(foreach dir, $(DIRS), $(wildcard $(dir)/*.c))
 OBJS = $(patsubst %.cpp,%.o,$(CPP_SRCS)) $(patsubst %.c,%.o,$(C_SRCS)) $(patsubst %.cc,%.o,$(CC_SRCS))
 
-SO_PATH = . 
-STEP_PATH = .
-
-SO_PATH = . 
-SO_DEP_PATH = $(SO_PATH) $(PLUGIN_PATH)/src
-STEP_PATH = .
-CMD_SO_CPP_SRCS = $(foreach dir, $(SO_PATH), $(wildcard $(dir)/Cmd*.cpp))
-MODULE_SO_CPP_SRCS = $(foreach dir, $(SO_PATH), $(wildcard $(dir)/Module*.cpp))
-SO_CPP_SRCS = $(CMD_SO_CPP_SRCS) $(MODULE_SO_CPP_SRCS)
-STEP_CPP_SRCS = $(foreach dir, $(STEP_PATH), $(wildcard $(dir)/Step*.cpp))
-CMD_DEP_CPP_SRCS = $(foreach dir, $(SO_DEP_PATH), $(wildcard $(dir)/*.cpp))
-STEP_OBJS = $(patsubst %.cpp,%.o,$(STEP_CPP_SRCS))
-SO_OBJS = $(patsubst %.cpp,%.o,$(SO_CPP_SRCS))
-CMD_DEP_OBJS = $(patsubst %.cpp,%.o,$(CMD_DEP_CPP_SRCS))
-PB_OBJS = $(patsubst %.pb.cc,%.pb.o,$(CC_SRCS))
 
 TARGET = Hello.so
 
 all: $(TARGET)
-
-.SECONDARY: $(PB_OBJS) $(CMD_DEP_OBJS)
 
 Hello.so:$(OBJS)
 	$(CXX) -fPIE -rdynamic -shared -g -o $@ $^ $(LDFLAGS)
