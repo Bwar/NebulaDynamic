@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Project:  NebulaDynamic
- * @file     CmdDataLand.cpp
+ * @file     ModuleDataLand.cpp
  * @brief    数据采集落地
  * @author   Bwar
  * @date:    2018年6月30日
@@ -12,21 +12,26 @@
 #include <chrono>
 #include <iomanip>
 #include <sstream>
-#include "CmdDataLand.hpp"
+#include "ModuleDataLand.hpp"
 
 namespace collect
 {
 
-CmdDataLand::CmdDataLand(int32 iCmd)
-    : neb::Cmd(iCmd)
+ModuleDataLand::ModuleDataLand(const std::string& strPath)
+    : neb::Module(strPath)
 {
 }
 
-CmdDataLand::~CmdDataLand()
+ModuleDataLand::~ModuleDataLand()
 {
+    if (m_ofs.is_open())
+    {
+        m_ofs.flush();
+        m_ofs.close();
+    }
 }
 
-bool CmdDataLand::Init()
+bool ModuleDataLand::Init()
 {
     neb::CJsonObject oJson = GetCustomConf();
     oJson["collect"].Get("data_path", m_strLogDataPath);
@@ -50,29 +55,33 @@ bool CmdDataLand::Init()
 }
 
 
-bool CmdDataLand::AnyMessage(
+bool ModuleDataLand::AnyMessage(
                 std::shared_ptr<neb::SocketChannel> pChannel, 
-                const MsgHead& oMsgHead, const MsgBody& oMsgBody)
+                const HttpMsg& oHttpMsg)
 {
-    MsgBody oOutMsgBody;
+    HttpMsg oHttpResponseMsg;
+    oHttpResponseMsg.set_type(HTTP_RESPONSE);
+    oHttpResponseMsg.set_status_code(200);
+    oHttpResponseMsg.set_http_major(oHttpMsg.http_major());
+    oHttpResponseMsg.set_http_minor(oHttpMsg.http_minor());
     neb::CJsonObject oJson;
-    LOG4_TRACE("%s", oMsgBody.data().c_str());
-    if (!oJson.Parse(oMsgBody.data()))
+    LOG4_TRACE("%s", oHttpMsg.body().c_str());
+    if (!oJson.Parse(oHttpMsg.body()))
     {
         LOG4_ERROR("error json format!");
-        oOutMsgBody.set_data("{\"code\": 10001, \"msg\": \"error json format!\"");
-        SendTo(pChannel, oMsgHead.cmd() + 1, oMsgHead.seq(), oOutMsgBody);
+        oHttpResponseMsg.set_body("{\"code\": 10001, \"msg\": \"error json format!\"");
+        SendTo(pChannel, oHttpResponseMsg);
         return(false);
     }
     else
     {
-        oOutMsgBody.set_data("{\"code\": 0, \"msg\": \"ok\"");
-        SendTo(pChannel, oMsgHead.cmd() + 1, oMsgHead.seq(), oOutMsgBody);
+        oHttpResponseMsg.set_body("{\"code\": 0, \"msg\": \"ok\"");
+        SendTo(pChannel, oHttpResponseMsg);
     }
     return(WriteData(oJson));
 }
 
-bool CmdDataLand::WriteData(neb::CJsonObject& oJson)
+bool ModuleDataLand::WriteData(neb::CJsonObject& oJson)
 {
     LOG4_TRACE("%s", oJson.ToString().c_str());
     if (!OpenDataFile())
@@ -90,7 +99,7 @@ bool CmdDataLand::WriteData(neb::CJsonObject& oJson)
     return(true);
 }
 
-bool CmdDataLand::OpenDataFile()
+bool ModuleDataLand::OpenDataFile()
 {
     if (m_ofs.is_open())
     {
