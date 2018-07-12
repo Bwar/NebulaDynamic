@@ -57,17 +57,17 @@ bool CmdDataLand::AnyMessage(
     MsgBody oOutMsgBody;
     neb::CJsonObject oJson;
     LOG4_TRACE("%s", oMsgBody.data().c_str());
-    if (!oJson.Parse(oMsgBody.data()))
+    if (oJson.Parse(oMsgBody.data()) && oJson.ToString().length() > 2) // there is a bug in cJSON_Parse(), we have to add "&& oJson.ToString().length() > 2" in order to avoid this bug.
     {
-        LOG4_ERROR("error json format!");
-        oOutMsgBody.set_data("{\"code\": 10001, \"msg\": \"error json format!\"");
+        oOutMsgBody.set_data("{\"code\": 0, \"msg\": \"ok\"}");
         SendTo(pChannel, oMsgHead.cmd() + 1, oMsgHead.seq(), oOutMsgBody);
-        return(false);
     }
     else
     {
-        oOutMsgBody.set_data("{\"code\": 0, \"msg\": \"ok\"");
+        LOG4_ERROR("error json format!");
+        oOutMsgBody.set_data("{\"code\": 10001, \"msg\": \"error json format!\"}");
         SendTo(pChannel, oMsgHead.cmd() + 1, oMsgHead.seq(), oOutMsgBody);
+        return(false);
     }
     return(WriteData(oJson));
 }
@@ -104,7 +104,7 @@ bool CmdDataLand::OpenDataFile()
     auto time_now = std::chrono::system_clock::now();
     auto t = std::chrono::system_clock::to_time_t(time_now);
     std::ostringstream osDataFile;
-    osDataFile << m_strLogDataPath << "/" << m_strLogFileName << "." << std::put_time(std::localtime(&t), "%Y-%m-%d");
+    osDataFile << m_strLogDataPath << "/" << m_strLogFileName << "." << std::put_time(std::localtime(&t), "%Y%m%d");
     m_strLogDataFile = osDataFile.str();
     for (int i = 1; ; ++i)
     {
