@@ -9,7 +9,7 @@
 因动态库加载后创建了大量实例，卸载过程容易产生残留，要解决这个问题的工程量比较大，Nebula暂时
 去掉了卸载动态库功能。
 
-&emsp;&emsp;动态库的加载配置可以参考[NebulaLogic.json]()配置文件。
+&emsp;&emsp;动态库的加载配置可以参考[NebulaLogic.json](https://github.com/Bwar/NebulaLogic/blob/master/conf/NebulaLogic.json)配置文件。
 
 ``` json
     "dynamic_loading":[
