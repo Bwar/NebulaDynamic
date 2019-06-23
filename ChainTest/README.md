@@ -1,0 +1,2 @@
+执行链示例
+把此目录编译出来的ChainTest.so放的plugins目录下，配置有Interface节点加载。

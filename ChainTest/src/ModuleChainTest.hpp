@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Project:  NebulaDynamic
- * @file     ModuleDataLand.hpp
+ * @file     ModuleChainTest.hpp
  * @brief    数据采集落地
  * @author   Bwar
  * @date:    2018年6月30日
@@ -8,8 +8,8 @@
  * Modify history:
  ******************************************************************************/
 
-#ifndef COLLECT_MODULEDATALAND_HPP
-#define COLLECT_MODULEDATALAND_HPP
+#ifndef COLLECT_MODULECHAINTEST_HPP
+#define COLLECT_MODULECHAINTEST_HPP
 
 #include <string>
 #include <map>
@@ -20,30 +20,19 @@
 namespace collect
 {
 
-class ModuleDataLand : public neb::Module, public neb::DynamicCreator<ModuleDataLand, std::string>
+class ModuleChainTest : public neb::Module, public neb::DynamicCreator<ModuleChainTest, std::string>
 {
 public:
-    ModuleDataLand(const std::string& strPath);
-    virtual ~ModuleDataLand();
+    ModuleChainTest(const std::string& strPath);
+    virtual ~ModuleChainTest();
 
     virtual bool Init();
 
     virtual bool AnyMessage(
                     std::shared_ptr<neb::SocketChannel> pChannel, 
                     const HttpMsg& oHttpMsg);
-
-protected:
-    bool OpenDataFile();
-    bool WriteData(neb::CJsonObject& oJson);
-
-private:
-    int32 m_iLogMaxFileSize;
-    std::string m_strLogDataPath;
-    std::string m_strLogFileName;
-    std::string m_strLogDataFile;
-    std::ofstream m_ofs;
 };
 
 }
 
-#endif // COLLECT_MODULEDATALAND_HPP
+#endif // COLLECT_MODULECHAINTEST_HPP

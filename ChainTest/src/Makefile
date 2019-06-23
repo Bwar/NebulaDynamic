@@ -42,11 +42,11 @@ C_SRCS = $(foreach dir, $(DIRS), $(wildcard $(dir)/*.c))
 OBJS = $(patsubst %.cpp,%.o,$(CPP_SRCS)) $(patsubst %.c,%.o,$(C_SRCS)) $(patsubst %.cc,%.o,$(CC_SRCS))
 
 
-TARGET = DataLand.so
+TARGET = ChainTest.so
 
 all: $(TARGET)
 
-DataLand.so:$(OBJS)
+ChainTest.so:$(OBJS)
 	$(CXX) -fPIE -rdynamic -shared -g -o $@ $^ $(LDFLAGS)
 
 %.o:%.cpp
