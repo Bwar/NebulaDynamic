@@ -8,6 +8,7 @@
  * Modify history:
  ******************************************************************************/
 #include "ContextRequest.hpp"
+#include <sstream>
 
 namespace hello
 {
@@ -23,16 +24,19 @@ ContextRequest::~ContextRequest()
 {
 }
 
-void ContextRequest::AddToResult(const std::string& strActorName, uint32 uiActorSeq)
+void ContextRequest::Done()
 {
-    neb::CJsonObject oNewBlock;
-    oNewBlock.Add(strActorName, uiActorSeq);
-    m_oJsonResult.Add(oNewBlock);
+    Response(m_oJsonResult.ToFormattedString());
 }
 
-std::string ContextRequest::ChainBlockString()
+void ContextRequest::AddToResult(const std::string& strActorName,
+        uint32 uiActorSeq, const std::string& strCallbackData)
 {
-    return(m_oJsonResult.ToFormatedString());
+    neb::CJsonObject oNewBlock;
+    std::ostringstream oss;
+    oss << strActorName << ":" << uiActorSeq;
+    oNewBlock.Add(oss.str(), strCallbackData);
+    m_oJsonResult.Add(oNewBlock);
 }
 
 } /* namespace hello */

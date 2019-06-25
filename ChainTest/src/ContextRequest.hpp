@@ -26,9 +26,10 @@ public:
             const HttpMsg& oHttpMsg);
     virtual ~ContextRequest();
 
-    void AddToResult(const std::string& strActorName, uint32 uiActorSeq);
+    virtual void Done();
 
-    std::string ChainBlockString();
+    void AddToResult(const std::string& strActorName,
+            uint32 uiActorSeq, const std::string& strCallbackData);
 
 private:
     neb::CJsonObject m_oJsonResult;

@@ -1,27 +1,27 @@
 /*******************************************************************************
  * Project:  Nebula
- * @file     StepOne.cpp
+ * @file     StepTwo.cpp
  * @brief 
  * @author   Bwar
  * @date:    2019年6月22日
  * @note
  * Modify history:
  ******************************************************************************/
-#include "StepOne.hpp"
+#include "StepTwo.hpp"
 #include "ContextRequest.hpp"
 
 namespace hello
 {
 
-StepOne::StepOne()
+StepTwo::StepTwo()
 {
 }
 
-StepOne::~StepOne()
+StepTwo::~StepTwo()
 {
 }
 
-neb::E_CMD_STATUS StepOne::Emit(int iErrno, const std::string& strErrMsg, void* data)
+neb::E_CMD_STATUS StepTwo::Emit(int iErrno, const std::string& strErrMsg, void* data)
 {
     MsgBody oMsgBody;
     std::shared_ptr<ContextRequest> pSharedContext
@@ -35,7 +35,7 @@ neb::E_CMD_STATUS StepOne::Emit(int iErrno, const std::string& strErrMsg, void* 
     return(neb::CMD_STATUS_FAULT);
 }
 
-neb::E_CMD_STATUS StepOne::Callback(
+neb::E_CMD_STATUS StepTwo::Callback(
         std::shared_ptr<neb::SocketChannel> pUpstreamChannel,
         const MsgHead& oInMsgHead,
         const MsgBody& oInMsgBody,
@@ -47,7 +47,7 @@ neb::E_CMD_STATUS StepOne::Callback(
     return(neb::CMD_STATUS_COMPLETED);
 }
 
-neb::E_CMD_STATUS StepOne::Timeout()
+neb::E_CMD_STATUS StepTwo::Timeout()
 {
     LOG4_ERROR("Timeout");
     return(neb::CMD_STATUS_FAULT);

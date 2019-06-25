@@ -8,8 +8,8 @@
  * Modify history:
  ******************************************************************************/
 
-#ifndef COLLECT_MODULECHAINTEST_HPP
-#define COLLECT_MODULECHAINTEST_HPP
+#ifndef HELLO_MODULECHAINTEST_HPP
+#define HELLO_MODULECHAINTEST_HPP
 
 #include <string>
 #include <map>
@@ -17,7 +17,7 @@
 #include <util/json/CJsonObject.hpp>
 #include <actor/cmd/Module.hpp>
 
-namespace collect
+namespace hello
 {
 
 class ModuleChainTest : public neb::Module, public neb::DynamicCreator<ModuleChainTest, std::string>
@@ -29,10 +29,10 @@ public:
     virtual bool Init();
 
     virtual bool AnyMessage(
-                    std::shared_ptr<neb::SocketChannel> pChannel, 
+                    std::shared_ptr<neb::SocketChannel> pChannel,
                     const HttpMsg& oHttpMsg);
 };
 
 }
 
-#endif // COLLECT_MODULECHAINTEST_HPP
+#endif // HELLO_MODULECHAINTEST_HPP

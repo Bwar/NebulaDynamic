@@ -1,25 +1,25 @@
 /*******************************************************************************
  * Project:  Nebula
- * @file     StepOne.hpp
+ * @file     StepTwo.hpp
  * @brief    
  * @author   Bwar
  * @date:    2019年6月22日
  * @note
  * Modify history:
  ******************************************************************************/
-#ifndef STEPONE_HPP_
-#define STEPONE_HPP_
+#ifndef STEPTWO_HPP_
+#define STEPTWO_HPP_
 
 #include <actor/step/PbStep.hpp>
 
 namespace hello
 {
 
-class StepOne: public neb::PbStep, public neb::DynamicCreator<StepOne>
+class StepTwo: public neb::PbStep, public neb::DynamicCreator<StepTwo>
 {
 public:
-    StepOne();
-    virtual ~StepOne();
+    StepTwo();
+    virtual ~StepTwo();
 
     virtual neb::E_CMD_STATUS Emit(int iErrno = neb::ERR_OK, const std::string& strErrMsg = "", void* data = NULL);
     virtual neb::E_CMD_STATUS Callback(
@@ -33,5 +33,5 @@ public:
 
 } /* namespace hello*/
 
-#endif /* STEPONE_HPP_ */
+#endif /* STEPTWO_HPP_ */
 
