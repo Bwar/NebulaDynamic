@@ -49,7 +49,7 @@ bool ModuleChainTest::AnyMessage(
     std::shared_ptr<neb::Chain> pSharedChain = MakeSharedChain("neb::Chain", oJson("chain_flag"), (ev_tstamp)60.0); //"chain_1" comes from request param.
     if (nullptr != pSharedChain)
     {
-        pSharedChain->NextBlock();
+        pSharedChain->Next();
         return(true);
     }
     return(false);
