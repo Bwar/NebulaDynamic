@@ -25,7 +25,7 @@ neb::E_CMD_STATUS ModelOne::Submit()
 {
     std::shared_ptr<ContextRequest> pSharedContext
         = std::dynamic_pointer_cast<ContextRequest>(GetContext());
-    pSharedContext->AddToResult(GetActorName(), GetSequence(), "is a matrix.");
+    pSharedContext->AddToResult(GetActorName(), GetSequence(), "is a model.");
     return(neb::CMD_STATUS_COMPLETED);
 }
 

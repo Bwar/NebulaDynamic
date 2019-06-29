@@ -10,7 +10,7 @@
 #ifndef MODELONE_HPP_
 #define MODELONE_HPP_
 
-#include <actor/matrix/Model.hpp>
+#include <actor/model/Model.hpp>
 
 namespace hello
 {
