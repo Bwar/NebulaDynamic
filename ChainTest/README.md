@@ -18,16 +18,16 @@
 ```json
 "runtime":{
         "chains":{
-            "chain_1":["hello::StepOne", "hello::StepTwo", "hello::MatrixOne", "hello::MatrixTwo"],
-            "chain_2":["hello::MatrixTwo",
+            "chain_1":["hello::StepOne", "hello::StepTwo", "hello::ModelOne", "hello::ModelTwo"],
+            "chain_2":["hello::ModelTwo",
                        ["hello::StepOne", "hello::StepTwo", "hello::StepOne"],
-                       "hello::MatrixOne",
-                       "hello::MatrixTwo"
+                       "hello::ModelOne",
+                       "hello::ModelTwo"
             ],
-            "chain_3":["hello::StepOne", "hello::MatrixTwo", "hello::StepTwo", "hello::MatrixOne"]
+            "chain_3":["hello::StepOne", "hello::ModelTwo", "hello::StepTwo", "hello::ModelOne"]
         }
 ```
-chain_2的["hello::StepOne", "hello::StepTwo", "hello::StepOne"]为并行步骤，注意，并行步骤必须都为Step，不可以含有Matrix。
+chain_2的["hello::StepOne", "hello::StepTwo", "hello::StepOne"]为并行步骤，注意，并行步骤必须都为Step，不可以含有Model。
 
 本测试需在NebulaLogic加载了Hello.so才能完成，因为StepOne和StepTwo两个步骤都是往LOGIC发送请求并得到LOGIC的响应后才完成。
 
@@ -46,16 +46,16 @@ chain_1的结果输出：
         }, {
                 "hello::StepTwo:39":    "Nebula: hello!\n"
         }, {
-                "hello::MatrixOne:13":  "is a matrix."
+                "hello::ModelOne:13":  "is a matrix."
         }, {
-                "hello::MatrixTwo:6":   "is a matrix."
+                "hello::ModelTwo:6":   "is a matrix."
         }]
 ```
 
 chain_2的结果输出：
 ```json
 [{
-                "hello::MatrixTwo:6":   "is a matrix."
+                "hello::ModelTwo:6":   "is a matrix."
         }, {
                 "hello::StepOne:44":    "Nebula: hello!\n"
         }, {
@@ -63,9 +63,9 @@ chain_2的结果输出：
         }, {
                 "hello::StepOne:46":    "Nebula: hello!\n"
         }, {
-                "hello::MatrixOne:13":  "is a matrix."
+                "hello::ModelOne:13":  "is a matrix."
         }, {
-                "hello::MatrixTwo:6":   "is a matrix."
+                "hello::ModelTwo:6":   "is a matrix."
         }]
 ```
 
@@ -74,11 +74,11 @@ chain_3的结果输出：
 [{
                 "hello::StepOne:32":    "Nebula: hello!\n"
         }, {
-                "hello::MatrixTwo:6":   "is a matrix."
+                "hello::ModelTwo:6":   "is a matrix."
         }, {
                 "hello::StepTwo:33":    "Nebula: hello!\n"
         }, {
-                "hello::MatrixOne:13":  "is a matrix."
+                "hello::ModelOne:13":  "is a matrix."
         }]
 ```
 

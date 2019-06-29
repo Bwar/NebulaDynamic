@@ -1,27 +1,27 @@
 /*******************************************************************************
  * Project:  Nebula
- * @file     MatrixTwo.cpp
+ * @file     ModelOne.cpp
  * @brief 
  * @author   Bwar
  * @date:    2019年6月22日
  * @note
  * Modify history:
  ******************************************************************************/
-#include "MatrixTwo.hpp"
+#include "ModelOne.hpp"
 #include "ContextRequest.hpp"
 
 namespace hello
 {
 
-MatrixTwo::MatrixTwo()
+ModelOne::ModelOne()
 {
 }
 
-MatrixTwo::~MatrixTwo()
+ModelOne::~ModelOne()
 {
 }
 
-neb::E_CMD_STATUS MatrixTwo::Submit()
+neb::E_CMD_STATUS ModelOne::Submit()
 {
     std::shared_ptr<ContextRequest> pSharedContext
         = std::dynamic_pointer_cast<ContextRequest>(GetContext());

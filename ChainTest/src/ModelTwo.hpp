@@ -1,30 +1,30 @@
 /*******************************************************************************
  * Project:  Nebula
- * @file     MatrixTwo.hpp
+ * @file     ModelTwo.hpp
  * @brief
  * @author   Bwar
  * @date:    2019年6月22日
  * @note
  * Modify history:
  ******************************************************************************/
-#ifndef MATRIXTWO_HPP_
-#define MATRIXTWO_HPP_
+#ifndef MODELTWO_HPP_
+#define MODELTWO_HPP_
 
-#include <actor/matrix/Matrix.hpp>
+#include <actor/matrix/Model.hpp>
 
 namespace hello
 {
 
-class MatrixTwo: public neb::Matrix, public neb::DynamicCreator<MatrixTwo>
+class ModelTwo: public neb::Model, public neb::DynamicCreator<ModelTwo>
 {
 public:
-    MatrixTwo();
-    virtual ~MatrixTwo();
+    ModelTwo();
+    virtual ~ModelTwo();
 
     virtual neb::E_CMD_STATUS Submit();
 };
 
 } /* namespace hello*/
 
-#endif /* MATRIXTWO_HPP_ */
+#endif /* MODELTWO_HPP_ */
 

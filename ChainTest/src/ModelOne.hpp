@@ -1,30 +1,30 @@
 /*******************************************************************************
  * Project:  Nebula
- * @file     MatrixOne.hpp
+ * @file     ModelOne.hpp
  * @brief
  * @author   Bwar
  * @date:    2019年6月22日
  * @note
  * Modify history:
  ******************************************************************************/
-#ifndef MATRIXONE_HPP_
-#define MATRIXONE_HPP_
+#ifndef MODELONE_HPP_
+#define MODELONE_HPP_
 
-#include <actor/matrix/Matrix.hpp>
+#include <actor/matrix/Model.hpp>
 
 namespace hello
 {
 
-class MatrixOne: public neb::Matrix, public neb::DynamicCreator<MatrixOne>
+class ModelOne: public neb::Model, public neb::DynamicCreator<ModelOne>
 {
 public:
-    MatrixOne();
-    virtual ~MatrixOne();
+    ModelOne();
+    virtual ~ModelOne();
 
     virtual neb::E_CMD_STATUS Submit();
 };
 
 } /* namespace hello*/
 
-#endif /* MATRIXONE_HPP_ */
+#endif /* MODELONE_HPP_ */
 
