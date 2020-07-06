@@ -12,7 +12,7 @@
 ``` json
     "dynamic_loading":[
       {
-        "so_path":"plugins/logic/Hello.so", "load":true, "version":1,
+        "so_path":"plugins/logic/Hello.so", "load":true, "version": "1.0",
         "cmd":[
             {"cmd":65531, "class":"logic::CmdHello"}
         ],
