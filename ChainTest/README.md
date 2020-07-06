@@ -4,7 +4,7 @@
 将下面这段配置添加到NebulaInterface.json的dynamic_loading中
 ```json
         {
-            "so_path":"plugins/ChainTest.so", "load":true, "version":1,
+            "so_path":"plugins/ChainTest.so", "load":true, "version": "1.0",
             "cmd":[
             ],
             "module":[
